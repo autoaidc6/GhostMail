@@ -1,20 +1,52 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# GhostMail 👻✉️
 
-# Run and deploy your AI Studio app
+A premium, responsive, and anonymous temporary email service. Generate disposable email addresses instantly to keep your primary inbox clean and secure from spam.
 
-This contains everything you need to run your app locally.
+## Features
 
-View your app in AI Studio: https://ai.studio/apps/8b0ac537-09b8-4c94-a703-98cd60b2a6f8
+* **Instant Address Generation:** Get a secure, fully functional temporary email address with a single click.
+* **Live Inbox:** Automatically polls for new messages every 15 seconds.
+* **Full-Stack Architecture:** Custom Node/Express proxy backend securely communicates with upstream mail providers (Guerrilla Mail API) while avoiding CORS or 403 IP blocks.
+* **Theming:** Clean Light & Dark mode support, with preferences automatically saved to local storage.
+* **Session Persistence:** Accidentally closed the tab? Your session metadata (email and `sid_token`) is securely saved in your browser so you don't lose your inbox.
+* **Premium UI/UX:** Built with Tailwind CSS and Framer Motion for glassy layers, polished layouts, and seamless micro-interactions.
 
-## Run Locally
+## Tech Stack
 
-**Prerequisites:**  Node.js
+* **Frontend:** React 19, TypeScript, Vite, Tailwind CSS 4, Framer Motion, React Router v6
+* **Backend:** Node.js, Express (via `tsx`)
+* **Icons:** Lucide React
+* **API / Mail Provider:** [Guerrilla Mail API](https://www.guerrillamail.com/) (Proxied via backend)
 
+## Getting Started
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+To run GhostMail locally:
+
+1. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start the Development Server:**
+   ```bash
+   npm run dev
+   ```
+   *This starts both the Express proxy server and the Vite dev middleware via `server.ts`.*
+
+3. **Build for Production:**
+   ```bash
+   npm run build
+   # Deployed environment handles starting the node server using the `start` script.
+   ```
+
+## Project Structure
+
+* `server.ts` - Express backend handling the API proxy logic and static file serving.
+* `src/components/Layout.tsx` - The responsive App shell containing theming logic, navigation, and the global footer.
+* `src/pages/Home.tsx` - The primary inbox interface, generation logic, and email viewer.
+* `src/pages/*` - Static content pages (`FAQ`, `Contact`, `Privacy`, `Terms`).
+* `src/index.css` - Global styles, CSS custom properties for Light/Dark modes, and Tailwind imports.
+
+## Privacy & Security
+
+GhostMail operates as a pass-through viewer. Mail contents are pulled dynamically from the upstream API provider. The custom Node middleman server **does not log, read, or archive** the contents of your messages.
